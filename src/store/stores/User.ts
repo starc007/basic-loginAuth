@@ -1,10 +1,11 @@
 import type { StateCreator } from "zustand";
 
 import type { AppState } from "../mainStore";
+import { getUsers } from "@/api";
 
 export interface IUserState {
   allUsers: IUser[];
-  getAllUsers: (page?: number) => void;
+  getAllUsers: (page?: number, signal?: AbortSignal) => Promise<void>;
 }
 
 export const initialUserState = {
@@ -16,5 +17,12 @@ export const createUserSlice: StateCreator<AppState, [], [], IUserState> = (
   get
 ) => ({
   ...initialUserState,
-  getAllUsers: (page) => {},
+  getAllUsers: async (page, signal) => {
+    try {
+      const res = await getUsers({ page }, { signal });
+      console.log("Response from getAllUsers: ", res);
+    } catch (error) {
+      console.log("Error from getAllUsers: ", error);
+    }
+  },
 });
