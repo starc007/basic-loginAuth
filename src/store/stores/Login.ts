@@ -2,6 +2,12 @@ import type { StateCreator } from "zustand";
 
 import type { AppState } from "../mainStore";
 
+// Simulating a user cred
+const USER_CRED = {
+  email: "saurabh@gmail.com",
+  password: "saurabh",
+};
+
 export interface ILoginState {
   user: {
     email?: string;
@@ -10,7 +16,9 @@ export interface ILoginState {
   } | null;
   isLoggedIn: boolean;
   loginWithWallet: (walletAddress: string) => void;
-  loginWithEmail: (email: string, password: string) => void;
+  loginWithEmail: (email: string, password: string) => Promise<boolean>;
+  checkSession: () => Promise<void>;
+  logout: () => void;
 }
 
 export const initialLoginState = {
@@ -19,10 +27,36 @@ export const initialLoginState = {
 };
 
 export const createLoginSlice: StateCreator<AppState, [], [], ILoginState> = (
-  set,
-  get
+  set
 ) => ({
   ...initialLoginState,
-  loginWithEmail: (email, password) => {},
+  loginWithEmail: async (email, password) => {
+    if (email === USER_CRED.email && password === USER_CRED.password) {
+      // Simulating a delay
+      await new Promise((resolve) => setTimeout(resolve, 800));
+      set({
+        user: {
+          email,
+          loggedInVia: "email",
+        },
+        isLoggedIn: true,
+      });
+      localStorage.setItem("user:isLoggedIn", "true");
+      return true;
+    }
+    return false;
+  },
   loginWithWallet(walletAddress) {},
+  checkSession: async () => {
+    const isLoggedIn = localStorage.getItem("user:isLoggedIn");
+    if (isLoggedIn === "true") {
+      // Simulating a delay
+      await new Promise((resolve) => setTimeout(resolve, 800));
+      set({ isLoggedIn: true });
+    }
+  },
+  logout: () => {
+    set({ user: null, isLoggedIn: false });
+    localStorage.removeItem("user:isLoggedIn");
+  },
 });

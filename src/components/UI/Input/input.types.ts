@@ -46,13 +46,6 @@ export interface InputOptions
   type?: "text" | "password" | "email" | "number" | "tel" | "url" | "file";
 
   /**
-   * Input error state
-   * @default false
-   * @type boolean
-   */
-  error?: boolean;
-
-  /**
    * Input error text
    * @default ""
    * @type string

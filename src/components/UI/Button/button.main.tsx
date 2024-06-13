@@ -4,9 +4,9 @@ import clsx from "clsx";
 
 const colorMap = {
   outline:
-    "text-gray-900 border border-gray-900 hover:bg-gray-900 hover:text-white",
-  solid: "text-white bg-gray-900 hover:opacity-90",
-  ghost: "text-gray-900 bg-gray-100",
+    "text-gray-900 border border-gray-900 hover:bg-gray-900 hover:text-white hover:ring-gray-900",
+  solid: "text-white bg-gray-900 hover:opacity-90 hover:ring-gray-900",
+  ghost: "text-gray-900 bg-gray-100 hover:ring-gray-200",
 } as Record<ButtonVariant, string>;
 
 const sizeMap = {
@@ -25,7 +25,7 @@ const Button = forwardRef<Ref, ButtonProps>((props, ref) => {
   } = props;
 
   const merged = clsx(
-    "inline-flex items-center justify-center gap-1.5 font-medium transition-all duration-300 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 disabled:opacity-70 disabled:cursor-not-allowed",
+    "inline-flex items-center justify-center gap-1.5 font-medium transition-all duration-300 rounded-full focus:outline-none hover:ring-1 hover:ring-offset-1  disabled:opacity-70 disabled:cursor-not-allowed",
     colorMap[variant],
     sizeMap[size],
     className

@@ -11,7 +11,6 @@ const Input = (props: InputOptions) => {
     placeholder = "",
     label = "",
     type = "text",
-    error = false,
     errorText = "",
     isInputRequired = false,
     ...rest
@@ -29,7 +28,7 @@ const Input = (props: InputOptions) => {
       </label>
       <div
         className={`border transition duration-300 ease-in-out rounded-lg mt-1 ${
-          error
+          errorText?.length > 0
             ? "focus-within:border-red-600 border-red-600"
             : "focus-within:border-gray-700"
         }`}
