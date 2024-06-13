@@ -6,11 +6,11 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = React.useState({
-    email: "",
+    username: "",
     password: "",
   });
   const [errorMessages, setErrorMessages] = React.useState({
-    email: "",
+    username: "",
     password: "",
   });
   const [loading, setLoading] = React.useState(false);
@@ -25,19 +25,19 @@ const Login = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!formData.email) {
-      setErrorMessages({ ...errorMessages, email: "Email is required" });
+    if (!formData.username) {
+      setErrorMessages({ ...errorMessages, username: "Email is required" });
       return;
     }
     if (!formData.password) {
       setErrorMessages({ ...errorMessages, password: "Password is required" });
       return;
     }
-    setErrorMessages({ email: "", password: "" });
+    setErrorMessages({ username: "", password: "" });
 
     setLoading(true);
     const isLoginSuccess = await loginWithEmail(
-      formData.email,
+      formData.username,
       formData.password
     );
 
@@ -45,11 +45,11 @@ const Login = () => {
       setLoading(false);
       setErrorMessages({
         ...errorMessages,
-        email: "Invalid email or password",
-        password: "Invalid email or password",
+        username: "Invalid username or password",
+        password: "Invalid username or password",
       });
     } else {
-      setFormData({ email: "", password: "" });
+      setFormData({ username: "", password: "" });
       setLoading(false);
       navigate("/dashboard");
     }
@@ -128,14 +128,13 @@ const Login = () => {
         </div>
         <form className="mt-2" onSubmit={handleSubmit}>
           <Input
-            label="Email"
-            type="email"
-            placeholder="Type email here..."
+            label="Username"
+            placeholder="Type username here..."
             inputClassName="text-sm"
-            errorText={errorMessages.email}
-            value={formData.email}
+            errorText={errorMessages.username}
+            value={formData.username}
             onChange={(e) =>
-              setFormData({ ...formData, email: e.target.value })
+              setFormData({ ...formData, username: e.target.value })
             }
           />
           <Input

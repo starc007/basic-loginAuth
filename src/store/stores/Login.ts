@@ -4,7 +4,7 @@ import type { AppState } from "../mainStore";
 
 // Simulating a user cred
 const USER_CRED = {
-  email: "saurabh@gmail.com",
+  email: "saurabh",
   password: "saurabh",
 };
 
