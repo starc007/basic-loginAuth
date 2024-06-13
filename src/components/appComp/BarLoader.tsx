@@ -1,5 +1,3 @@
-import React from "react";
-
 const BarLoader = ({ bar = 10 }: { bar?: number }) => {
   return (
     <div className="space-y-4">
