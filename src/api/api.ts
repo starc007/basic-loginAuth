@@ -2,7 +2,7 @@ import { AxiosRequestConfig } from "axios";
 import { getFetch } from "./api-wrapper";
 import * as Types from "./api-types";
 
-const DATA_LIMIT = 10; //store in constant file or in env
+const DATA_LIMIT = 500; //store in constant file or in env
 
 export const getUsers = (
   params?: {

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import BarLoader from "./BarLoader";
 
 interface IUserTable {
@@ -76,8 +76,8 @@ const UserTable: FC<IUserTable> = ({
 
                   {!loading &&
                     users.length > 0 &&
-                    users.map((user) => (
-                      <tr key={user.email}>
+                    users.map((user, idx) => (
+                      <tr key={idx}>
                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6">
                           <div className="flex items-center">
                             <div className="h-10 w-10 flex-shrink-0">
@@ -109,6 +109,30 @@ const UserTable: FC<IUserTable> = ({
                 </tbody>
               </table>
             </div>
+          </div>
+        </div>
+
+        <div className="flex justify-between mt-4">
+          <div>
+            <p className="text-sm text-gray-700">
+              Page {currentPage} of {totalPage}
+            </p>
+          </div>
+          <div>
+            <button
+              onClick={handlePrev}
+              disabled={currentPage === 1}
+              className="px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Prev
+            </button>
+            <button
+              onClick={handleNext}
+              disabled={currentPage === totalPage}
+              className="ml-2 px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Next
+            </button>
           </div>
         </div>
       </div>
