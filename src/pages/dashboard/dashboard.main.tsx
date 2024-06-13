@@ -80,11 +80,19 @@ const Dashboard = () => {
   React.useEffect(() => {
     loadAllUsers(currentPage);
 
+    /**
+     * Cleanup function
+     * Abort the fetch request when the component is unmounted
+     */
     return () => {
       axiosFetchAbortController.current.abort();
     };
   }, []);
 
+  /**
+   * Debounce the search input
+   * So that we don't make api call on every key press
+   */
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSearch = React.useCallback(
     debounce((searchValue: string) => {
