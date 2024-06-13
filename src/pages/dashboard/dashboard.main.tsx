@@ -6,7 +6,7 @@ import React, { useRef } from "react";
 
 const Dashboard = () => {
   const [search, setSearch] = React.useState("");
-  const [currentPage, setCurrentPage] = React.useState(1);
+  const [currentPage, setCurrentPage] = React.useState(0);
   const [loading, setLoading] = React.useState(false);
   const axiosFetchAbortController = useRef<AbortController>(null!);
 
@@ -85,13 +85,15 @@ const Dashboard = () => {
     };
   }, []);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSearch = React.useCallback(
     debounce((searchValue: string) => {
+      if (currentPage !== 0) {
+        setCurrentPage(0);
+      }
       if (searchValue.length === 0) {
         setFilteredUsers(allUsers.slice(0, 10), allUsers.length / 10);
-        if (currentPage !== 1) {
-          setCurrentPage(1);
-        }
+
         return;
       }
 
@@ -106,7 +108,7 @@ const Dashboard = () => {
 
       setFilteredUsers(filtered.slice(0, 10), filtered.length / 10);
     }, 500),
-    [allUsers, setFilteredUsers]
+    [allUsers, setFilteredUsers, currentPage]
   );
 
   return (
@@ -127,7 +129,7 @@ const Dashboard = () => {
       <UserTable
         users={filteredUsers}
         totalPage={totalUserPages}
-        currentPage={currentPage}
+        currentPage={filteredUsers.length > 0 ? currentPage + 1 : currentPage}
         handleNext={handleNext}
         handlePrev={handlePrev}
         loading={loading}

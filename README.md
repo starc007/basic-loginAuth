@@ -1,30 +1,20 @@
-# React + TypeScript + Vite
+# Read this first👋
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Dummy username and password
 
-Currently, two official plugins are available:
+`username:saurabh`
+`password:saurabh`
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Searching & Pagination (NOT RECOMMENDED)
 
-## Expanding the ESLint configuration
+Given api does not provide option to search thru name, so for demo perpose,
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- First i fetched 500 users from the api
+- Then calculated total pages (500/ 10 = 50) - showing 10 results at a time
+- According to that i built the pagination and searching thru that data
 
-- Configure the top-level `parserOptions` property like this:
+## Way to implement searching & pagination
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- Pass the page number as param in api
+- Pass the search value in api endpoint to get the desired results from database
+  ̌
