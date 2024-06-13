@@ -48,6 +48,14 @@ export function debounce(
   };
 }
 
+/**
+ *
+ * @param searchVal
+ * @param name
+ * @param location
+ * @param email
+ * @returns  boolean
+ */
 export const searchFilter = (
   searchVal: string,
   name: string,

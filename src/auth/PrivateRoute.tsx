@@ -10,12 +10,16 @@ const PrivateRoute = () => {
   const [isLoading, setIsLoading] = useState(isLoggedIn ? false : true);
 
   useEffect(() => {
+    // If user is not logged in and  not loading
+    // Check the session to see if the user is logged in
+
     if (!isLoggedIn && isLoading) {
       setIsLoading(true);
       checkSession().then(() => {
         setIsLoading(false);
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn, isLoading]);
 
   if (isLoading) {

@@ -20,6 +20,10 @@ export const initialState = {
   ...initialUserState,
 };
 
+/**
+ * Create a combined store
+ * which includes all the slices
+ */
 export const useAppStore = createWithEqualityFn<AppState>()(
   (...a) => ({
     ...createLoginSlice(...a),
