@@ -6,7 +6,6 @@ import * as Types from "./api-types";
 export const API = axios.create({
   baseURL: DEFAULT_API_CONFIG.url,
   timeout: DEFAULT_API_CONFIG.timeout,
-  withCredentials: true,
 });
 
 export const getFetch = async <T>(
@@ -25,14 +24,10 @@ export const getFetch = async <T>(
       params,
       ...config,
     });
-    return response.data;
+    return response;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
-      return {
-        data: error.response.data,
-        success: false,
-        message: error.message,
-      } as Types.AppFetchRequestResponse<T>;
+      return error.response.data;
     }
     throw error;
   }
@@ -49,14 +44,10 @@ export const postFetch = async <T>(
       params,
       config
     );
-    return response.data;
+    return response;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
-      return {
-        data: error.response.data,
-        success: false,
-        message: error.message,
-      } as Types.AppFetchRequestResponse<T>;
+      return error.response.data;
     }
     throw error;
   }

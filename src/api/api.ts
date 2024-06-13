@@ -2,11 +2,17 @@ import { AxiosRequestConfig } from "axios";
 import { getFetch } from "./api-wrapper";
 import * as Types from "./api-types";
 
+const DATA_LIMIT = 10; //store in constant file or in env
+
 export const getUsers = (
   params?: {
     page?: number;
   },
   config?: AxiosRequestConfig
-): Promise<Types.FetchResponse<IUser[]>> => {
-  return getFetch(`/api?results=${params?.page}`, params, config);
+): Promise<Types.FetchResponse> => {
+  return getFetch(
+    `/api?page=${params?.page}&results=${DATA_LIMIT}&exc=login&seed=test`,
+    undefined,
+    config
+  );
 };

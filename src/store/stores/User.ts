@@ -20,7 +20,10 @@ export const createUserSlice: StateCreator<AppState, [], [], IUserState> = (
   getAllUsers: async (page, signal) => {
     try {
       const res = await getUsers({ page }, { signal });
-      console.log("Response from getAllUsers: ", res);
+      console.log("Response from getAllUsers: ", res?.data?.results);
+      set({
+        allUsers: res?.data?.results || [],
+      });
     } catch (error) {
       console.log("Error from getAllUsers: ", error);
     }
