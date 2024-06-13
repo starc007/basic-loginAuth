@@ -15,7 +15,7 @@ export interface ILoginState {
     loggedInVia?: "email" | "wallet";
   } | null;
   isLoggedIn: boolean;
-  loginWithWallet: (walletAddress: string) => void;
+  loginWithWallet: (walletAddress: string) => Promise<void>;
   loginWithEmail: (email: string, password: string) => Promise<boolean>;
   checkSession: () => Promise<void>;
   logout: () => void;
@@ -42,11 +42,24 @@ export const createLoginSlice: StateCreator<AppState, [], [], ILoginState> = (
         isLoggedIn: true,
       });
       localStorage.setItem("user:isLoggedIn", "true");
+      localStorage.setItem("user:email", email);
       return true;
     }
     return false;
   },
-  loginWithWallet(walletAddress) {},
+  loginWithWallet: async (walletAddress) => {
+    // Simulating a delay
+    await new Promise((resolve) => setTimeout(resolve, 800));
+    set({
+      user: {
+        walletAddress,
+        loggedInVia: "wallet",
+      },
+      isLoggedIn: true,
+    });
+    localStorage.setItem("user:isLoggedIn", "true");
+    localStorage.setItem("user:walletAddress", walletAddress);
+  },
   checkSession: async () => {
     const isLoggedIn = localStorage.getItem("user:isLoggedIn");
     if (isLoggedIn === "true") {
@@ -58,5 +71,7 @@ export const createLoginSlice: StateCreator<AppState, [], [], ILoginState> = (
   logout: () => {
     set({ user: null, isLoggedIn: false });
     localStorage.removeItem("user:isLoggedIn");
+    localStorage.removeItem("user:email");
+    localStorage.removeItem("user:walletAddress");
   },
 });

@@ -14,9 +14,12 @@ const Login = () => {
     password: "",
   });
   const [loading, setLoading] = React.useState(false);
+  const [isWalletConnectLoading, setIsWalletConnectLoading] =
+    React.useState(false);
 
-  const { loginWithEmail } = useAppStore((state) => ({
+  const { loginWithEmail, loginWithWallet } = useAppStore((state) => ({
     loginWithEmail: state.loginWithEmail,
+    loginWithWallet: state.loginWithWallet,
   }));
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -52,6 +55,42 @@ const Login = () => {
     }
   };
 
+  /**
+   * Only for metamask wallet
+   * PLEASE USE WALLET CONNECT LIBRARY FOR PRODUCTION (e.g. web3modal)
+   * NOTE: It wont work for account change and network change
+   *
+   */
+  const handleConnectWallet = async () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const provider = (window as any).ethereum;
+    if (!provider) {
+      alert("Please install metamask wallet");
+      return;
+    }
+
+    if (!provider.isMetaMask) {
+      alert("Please install metamask wallet");
+      return;
+    }
+
+    try {
+      setIsWalletConnectLoading(true);
+      const accounts = await provider.request({ method: "eth_accounts" });
+
+      if (accounts.length === 0) {
+        alert("Please connect your wallet");
+        return;
+      }
+
+      await loginWithWallet(accounts[0]);
+      setIsWalletConnectLoading(false);
+      navigate("/dashboard");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <section>
       <div className="py-24 mx-auto max-w-sm">
@@ -64,7 +103,13 @@ const Login = () => {
           </p>
         </div>
         <div className="mt-8">
-          <Button className="w-full" variant="ghost">
+          <Button
+            disabled={isWalletConnectLoading || loading}
+            showloading={isWalletConnectLoading}
+            onClick={handleConnectWallet}
+            className="w-full"
+            variant="ghost"
+          >
             Sign in with Wallet
           </Button>
           <div className="relative py-3 mt-5">
@@ -106,7 +151,7 @@ const Login = () => {
             }
           />
           <Button
-            disabled={loading}
+            disabled={loading || isWalletConnectLoading}
             showloading={loading}
             className="w-full mt-6"
             variant="solid"
