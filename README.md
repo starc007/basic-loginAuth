@@ -7,7 +7,7 @@
 
 ## Searching & Pagination (NOT RECOMMENDED)
 
-Given api does not provide option to search thru name, so for demo perpose,
+Given api does not provide option to search thru name, so for demo purpose,
 
 - First i fetched 500 users from the api
 - Then calculated total pages (500/ 10 = 50) - showing 10 results at a time
