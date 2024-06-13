@@ -99,7 +99,15 @@ const Login = () => {
             Lets do some magic
           </h1>
           <p className="mt-4 text-base font-medium text-gray-500">
-            Build better, built faster (use beui.xyz)
+            Build better, built faster (use{" "}
+            <a
+              href="https://beui.xyz/"
+              target="_blank"
+              className="text-blue-500"
+            >
+              beui.xyz
+            </a>{" "}
+            )
           </p>
         </div>
         <div className="mt-8">
