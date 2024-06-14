@@ -1,5 +1,7 @@
 # Read this first👋
 
+Demo: [https://loginauth-node.netlify.app](https://loginauth-node.netlify.app)
+
 ### Dummy username and password
 
 `username:saurabh`
@@ -23,3 +25,8 @@ Given api does not provide option to search thru name, so for demo purpose,
 1. Clone the repo `git clone https://github.com/starc007/basic-loginAuth.git`
 2. run `yarn` or `npm install`
 3. run `yarn dev` or `npm run dev`
+
+## [UPDATE]: Possible way to optimize the app
+
+1. Use `useCallback` in `handleNext` & `handlePrev` function in `dashboard.main.tsx` file
+2. Abstract all the logic from `dashboard.main.tsx` file and make a custom hook for more cleaner code

@@ -6,7 +6,7 @@ import React, { useRef } from "react";
 
 const Dashboard = () => {
   const [search, setSearch] = React.useState("");
-  const [currentPage, setCurrentPage] = React.useState(0);
+  const [currentPage, setCurrentPage] = React.useState(1);
   const [loading, setLoading] = React.useState(false);
   const axiosFetchAbortController = useRef<AbortController>(null!);
 
@@ -97,7 +97,7 @@ const Dashboard = () => {
   const debouncedSearch = React.useCallback(
     debounce((searchValue: string) => {
       if (currentPage !== 0) {
-        setCurrentPage(0);
+        setCurrentPage(1);
       }
       if (searchValue.length === 0) {
         setFilteredUsers(allUsers.slice(0, 10), allUsers.length / 10);
@@ -137,7 +137,7 @@ const Dashboard = () => {
       <UserTable
         users={filteredUsers}
         totalPage={totalUserPages}
-        currentPage={filteredUsers.length > 0 ? currentPage + 1 : currentPage}
+        currentPage={currentPage}
         handleNext={handleNext}
         handlePrev={handlePrev}
         loading={loading}
