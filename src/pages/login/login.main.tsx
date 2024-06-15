@@ -76,7 +76,9 @@ const Login = () => {
 
     try {
       setIsWalletConnectLoading(true);
-      const accounts = await provider.request({ method: "eth_accounts" });
+      const accounts = await provider.request({
+        method: "eth_requestAccounts",
+      });
 
       if (accounts.length === 0) {
         alert("Please connect your wallet");
