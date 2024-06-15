@@ -1,5 +1,7 @@
 # Read this first👋
 
+NOTE: Wallet connect option will only work for Metamask, (For production please use wallect connect library)
+
 Demo: [https://loginauth-node.netlify.app](https://loginauth-node.netlify.app)
 
 ### Dummy username and password
